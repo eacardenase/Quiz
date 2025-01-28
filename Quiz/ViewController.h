@@ -9,6 +9,11 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic) UILabel *questionField;
+@property (nonatomic) UILabel *answerField;
+
+@property (nonatomic) UIButton *showQuestionButton;
+@property (nonatomic) UIButton *showAnswerButton;
 
 @end
 
