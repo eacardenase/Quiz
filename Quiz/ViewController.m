@@ -82,7 +82,7 @@
         [self.showQuestionButton.leadingAnchor constraintEqualToAnchor:self.questionLabel.leadingAnchor],
         [self.showQuestionButton.trailingAnchor constraintEqualToAnchor:self.questionLabel.trailingAnchor],
         
-        [self.answerLabel.topAnchor constraintEqualToAnchor:self.showQuestionButton.bottomAnchor constant:250],
+        [self.answerLabel.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor],
         [self.answerLabel.leadingAnchor constraintEqualToAnchor:self.questionLabel.leadingAnchor],
         [self.answerLabel.trailingAnchor constraintEqualToAnchor:self.questionLabel.trailingAnchor],
         
@@ -110,6 +110,10 @@
 
 - (void)showAnswer:(id)sender
 {
+    if ([self.questionLabel.text isEqualToString:@""]) {
+        return;
+    }
+    
     NSString *answer = self.answers[self.currentQuestionIndex];
     
     self.answerLabel.text = answer;
