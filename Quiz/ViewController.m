@@ -30,6 +30,7 @@
     self.showQuestionButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.showQuestionButton setTitle:@"Show Question" forState:UIControlStateNormal];
     self.showQuestionButton.backgroundColor = [UIColor systemGray5Color];
+    [self.showQuestionButton addTarget:self action:@selector(showQuestion:) forControlEvents:UIControlEventTouchUpInside];
     
     self.answerField = [UILabel new];
     self.answerField.text = @"???";
@@ -38,6 +39,7 @@
     self.showAnswerButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.showAnswerButton setTitle:@"Show Answer" forState:UIControlStateNormal];
     self.showAnswerButton.backgroundColor = [UIColor systemGray5Color];
+    [self.showAnswerButton addTarget:self action:@selector(showAnswer:) forControlEvents:UIControlEventTouchUpInside];
     
     self.questionField.translatesAutoresizingMaskIntoConstraints = NO;
     self.showQuestionButton.translatesAutoresizingMaskIntoConstraints = NO;
@@ -66,6 +68,18 @@
         [self.showAnswerButton.leadingAnchor constraintEqualToAnchor:self.questionField.leadingAnchor],
         [self.showAnswerButton.trailingAnchor constraintEqualToAnchor:self.questionField.trailingAnchor],
     ]];
+}
+
+#pragma mark - Actions
+
+- (void)showQuestion:(id)sender
+{
+    NSLog(@"showQuestion tapped.");
+}
+
+- (void)showAnswer:(id)sender
+{
+    NSLog(@"showAnswer tapped.");
 }
 
 @end
