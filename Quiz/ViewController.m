@@ -18,16 +18,17 @@
     self = [super init];
     
     if (self) {
-        self.questions = @[
+        _questions = @[
             @"From what is cognac made?",
             @"What is 7+7?",
             @"What is the capital of Vermont?",
         ];
-        self.answers = @[
+        _answers = @[
             @"Grapes",
             @"14",
             @"Montpelier",
         ];
+        _currentQuestionIndex = 0;
     }
     
     return self;
@@ -43,31 +44,59 @@
     NSLog(@"%@", self.answers);
 }
 
+- (UILabel *)questionLabel
+{
+    if (!_questionLabel) {
+        _questionLabel = [UILabel new];
+        _questionLabel.text = self.questions[self.currentQuestionIndex];
+        _questionLabel.textAlignment = NSTextAlignmentCenter;
+        _questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    return _questionLabel;
+}
+
+- (UIButton *)showQuestionButton
+{
+    if (!_showQuestionButton) {
+        _showQuestionButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_showQuestionButton setTitle:@"Next Question" forState:UIControlStateNormal];
+        _showQuestionButton.backgroundColor = [UIColor systemGray5Color];
+        [_showQuestionButton addTarget:self action:@selector(showQuestion:) forControlEvents:UIControlEventTouchUpInside];
+        _showQuestionButton.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    return _showQuestionButton;
+}
+
+- (UILabel *)answerLabel
+{
+    if (!_answerLabel) {
+        _answerLabel = [UILabel new];
+        _answerLabel.text = @"???";
+        _answerLabel.textAlignment = NSTextAlignmentCenter;
+        _answerLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    return _answerLabel;
+}
+
+- (UIButton *)showAnswerButton
+{
+    if (!_showAnswerButton) {
+        _showAnswerButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_showAnswerButton setTitle:@"Show Answer" forState:UIControlStateNormal];
+        _showAnswerButton.backgroundColor = [UIColor systemGray5Color];
+        [_showAnswerButton addTarget:self action:@selector(showAnswer:) forControlEvents:UIControlEventTouchUpInside];
+        
+        _showAnswerButton.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    
+    return _showAnswerButton;
+}
+
 - (void)setupViews
 {
-    self.questionLabel = [UILabel new];
-    self.questionLabel.text = @"";
-    self.questionLabel.textAlignment = NSTextAlignmentCenter;
-    
-    self.showQuestionButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.showQuestionButton setTitle:@"Show Question" forState:UIControlStateNormal];
-    self.showQuestionButton.backgroundColor = [UIColor systemGray5Color];
-    [self.showQuestionButton addTarget:self action:@selector(showQuestion:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.answerLabel = [UILabel new];
-    self.answerLabel.text = @"???";
-    self.answerLabel.textAlignment = NSTextAlignmentCenter;
-    
-    self.showAnswerButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.showAnswerButton setTitle:@"Show Answer" forState:UIControlStateNormal];
-    self.showAnswerButton.backgroundColor = [UIColor systemGray5Color];
-    [self.showAnswerButton addTarget:self action:@selector(showAnswer:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.questionLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.showQuestionButton.translatesAutoresizingMaskIntoConstraints = NO;
-    self.answerLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    self.showAnswerButton.translatesAutoresizingMaskIntoConstraints = NO;
-    
     [self.view addSubview:self.questionLabel];
     [self.view addSubview:self.showQuestionButton];
     [self.view addSubview:self.answerLabel];
